@@ -1,0 +1,334 @@
+"","x"
+"(Intercept)",-80.7059162709247
+"occupation Craft-repair",46.8267303633795
+"sex Male",0.210589660246282
+"marital.status Married-AF-spouse",18.7308471656699
+"marital.status Married-civ-spouse",18.3300124824134
+"marital.status Married-spouse-absent",-15.7972102201303
+"marital.status Never-married",1.04919069856386
+"marital.status Separated",-17.0331679197352
+"marital.status Widowed",1.20018737715619
+"relationship Not-in-family",27.3028728486668
+"relationship Other-relative",-19.1983171460426
+"relationship Own-child",-11.982800165623
+"relationship Unmarried",28.1664479322603
+"relationship Wife",29.3247067266945
+"education 11th",24.1031190997266
+"education 12th",68.5898822572762
+"education 1st-4th",6.40266105383286
+"education 5th-6th",69.7405737462446
+"education 7th-8th",17.3364895112293
+"education 9th",33.38272519907
+"education Assoc-acdm",-19.571902661911
+"education Assoc-voc",89.6008753167247
+"education Bachelors",50.1605853996517
+"education Doctorate",65.0377141245679
+"education HS-grad",112.946256071387
+"education Masters",16.4677232358379
+"education Preschool",48.2634994739099
+"education Prof-school",47.8063055978026
+"education Some-college",51.2277845690937
+"workclass Local-gov",-41.8659887468513
+"workclass Private",15.3071126152852
+"workclass Self-emp-inc",-16.8264121873159
+"workclass Self-emp-not-inc",54.0877690538748
+"workclass State-gov",-42.7504420045724
+"workclass Without-pay",-20.3491364022345
+"occupation Craft-repair:sex Male",-0.285682221711688
+"occupation Craft-repair:marital.status Married-AF-spouse",8.31139903329773
+"occupation Craft-repair:marital.status Married-civ-spouse",-30.8102420938188
+"occupation Craft-repair:marital.status Married-spouse-absent",0.0262290487359287
+"occupation Craft-repair:marital.status Never-married",0.146606296719873
+"occupation Craft-repair:marital.status Separated",-1.39074224970476
+"occupation Craft-repair:marital.status Widowed",-1.43374454720599
+"occupation Craft-repair:relationship Not-in-family",-30.4683849272351
+"occupation Craft-repair:relationship Other-relative",-30.3887917374646
+"occupation Craft-repair:relationship Own-child",-30.5270266480754
+"occupation Craft-repair:relationship Unmarried",-30.1357755041227
+"occupation Craft-repair:relationship Wife",-0.643936491909375
+"occupation Craft-repair:education 11th",-17.0580280185846
+"occupation Craft-repair:education 12th",-15.0452965470649
+"occupation Craft-repair:education 5th-6th",-0.48722111602347
+"occupation Craft-repair:education 7th-8th",-16.603164426525
+"occupation Craft-repair:education 9th",-16.218883885432
+"occupation Craft-repair:education Assoc-acdm",-16.1616731175257
+"occupation Craft-repair:education Assoc-voc",-16.0962636971488
+"occupation Craft-repair:education Bachelors",-16.7687370552196
+"occupation Craft-repair:education Doctorate",-73.088104062025
+"occupation Craft-repair:education HS-grad",-16.4806451951656
+"occupation Craft-repair:education Masters",-16.6586407668437
+"occupation Craft-repair:education Preschool",-13.8691252682019
+"occupation Craft-repair:education Prof-school",3.58392104378749
+"occupation Craft-repair:education Some-college",-16.6173471851643
+"occupation Craft-repair:workclass Local-gov",1.24223586091395
+"occupation Craft-repair:workclass Private",0.944488609343694
+"occupation Craft-repair:workclass Self-emp-inc",1.39652825836684
+"occupation Craft-repair:workclass Self-emp-not-inc",0.550814624216189
+"occupation Craft-repair:workclass State-gov",1.20847730255909
+"occupation Craft-repair:workclass Without-pay",45.6438616270523
+"sex Male:marital.status Married-AF-spouse",28.4636114891218
+"sex Male:marital.status Married-civ-spouse",27.8876863087636
+"sex Male:marital.status Married-spouse-absent",0.934958746303619
+"sex Male:marital.status Never-married",-0.690415072973903
+"sex Male:marital.status Separated",2.47964807063249
+"sex Male:marital.status Widowed",0.443646433969713
+"sex Male:relationship Not-in-family",0.0101574885299719
+"sex Male:relationship Other-relative",-0.166755948910354
+"sex Male:relationship Own-child",-0.0729753431783427
+"sex Male:education 11th",1.64573622604809
+"sex Male:education 12th",-1.48903659371799
+"sex Male:education 1st-4th",-16.9726274678308
+"sex Male:education 5th-6th",-14.4535290526161
+"sex Male:education 7th-8th",0.972116139378463
+"sex Male:education 9th",-1.41096417922633
+"sex Male:education Assoc-acdm",2.14446478065634
+"sex Male:education Assoc-voc",1.47534648122794
+"sex Male:education Bachelors",2.58649627023951
+"sex Male:education Doctorate",1.61666432885644
+"sex Male:education HS-grad",2.19754656204226
+"sex Male:education Masters",2.6002593424323
+"sex Male:education Preschool",-34.9068915357399
+"sex Male:education Prof-school",6.97956797977704
+"sex Male:education Some-college",1.82346086629512
+"sex Male:workclass Local-gov",-1.43086435653108
+"sex Male:workclass Private",-1.06386357292692
+"sex Male:workclass Self-emp-inc",-1.77281995688479
+"sex Male:workclass Self-emp-not-inc",0.651127740511367
+"sex Male:workclass State-gov",-0.921300267006946
+"sex Male:workclass Without-pay",0.746690787909153
+"marital.status Married-civ-spouse:relationship Not-in-family",-11.4174735204683
+"marital.status Married-spouse-absent:relationship Not-in-family",-0.905523085604881
+"marital.status Never-married:relationship Not-in-family",-0.239780917572268
+"marital.status Separated:relationship Not-in-family",-0.823677154533948
+"marital.status Widowed:relationship Not-in-family",-1.53280669513801
+"marital.status Married-civ-spouse:relationship Other-relative",18.4338545199943
+"marital.status Married-spouse-absent:relationship Other-relative",-14.7599912477227
+"marital.status Never-married:relationship Other-relative",-0.852271178436645
+"marital.status Separated:relationship Other-relative",0.983673172566788
+"marital.status Widowed:relationship Other-relative",-16.0059269199004
+"marital.status Married-AF-spouse:relationship Own-child",142.224030230784
+"marital.status Married-spouse-absent:relationship Own-child",-0.122448591683991
+"marital.status Never-married:relationship Own-child",-1.51807166696378
+"marital.status Separated:relationship Own-child",-17.875233237783
+"marital.status Widowed:relationship Own-child",-17.6707101972459
+"marital.status Married-civ-spouse:education 11th",10.5225698417113
+"marital.status Married-spouse-absent:education 11th",-18.5739758721844
+"marital.status Never-married:education 11th",-0.804509400233759
+"marital.status Separated:education 11th",-17.4533548066063
+"marital.status Widowed:education 11th",-17.2348265829266
+"marital.status Married-civ-spouse:education 12th",-51.2714673464366
+"marital.status Never-married:education 12th",-17.0134443466863
+"marital.status Separated:education 12th",-18.6901545737045
+"marital.status Widowed:education 12th",-1.95599602193656
+"marital.status Married-civ-spouse:education 1st-4th",-6.40685403231251
+"marital.status Married-spouse-absent:education 1st-4th",-0.462385289959179
+"marital.status Never-married:education 1st-4th",0.0286151218298003
+"marital.status Widowed:education 1st-4th",58.0921050531207
+"marital.status Married-civ-spouse:education 5th-6th",-30.9480371914106
+"marital.status Married-spouse-absent:education 5th-6th",15.1488352836545
+"marital.status Never-married:education 5th-6th",6.61368194980567
+"marital.status Separated:education 5th-6th",14.0221065737965
+"marital.status Married-civ-spouse:education 7th-8th",-2.56204340332048
+"marital.status Married-spouse-absent:education 7th-8th",17.9480881355016
+"marital.status Never-married:education 7th-8th",0.00553748413580999
+"marital.status Separated:education 7th-8th",1.05586062370113
+"marital.status Widowed:education 7th-8th",-0.262600754327729
+"marital.status Married-civ-spouse:education 9th",-16.9642425945217
+"marital.status Married-spouse-absent:education 9th",-17.9002060255226
+"marital.status Never-married:education 9th",0.0475369476757045
+"marital.status Separated:education 9th",-18.2778707992065
+"marital.status Widowed:education 9th",-17.7867321917282
+"marital.status Married-AF-spouse:education Assoc-acdm",-45.2637031525929
+"marital.status Married-civ-spouse:education Assoc-acdm",52.0289410407709
+"marital.status Married-spouse-absent:education Assoc-acdm",-16.9214234807461
+"marital.status Never-married:education Assoc-acdm",-0.200519193095721
+"marital.status Separated:education Assoc-acdm",-1.81097283767213
+"marital.status Widowed:education Assoc-acdm",-16.7027766680234
+"marital.status Married-civ-spouse:education Assoc-voc",-55.0748142271991
+"marital.status Married-spouse-absent:education Assoc-voc",-18.0934171025171
+"marital.status Never-married:education Assoc-voc",0.270897464403294
+"marital.status Separated:education Assoc-voc",0.0316333247168769
+"marital.status Widowed:education Assoc-voc",-15.9132089335748
+"marital.status Married-civ-spouse:education Bachelors",-17.2740982636416
+"marital.status Married-spouse-absent:education Bachelors",-1.30445042212389
+"marital.status Never-married:education Bachelors",-0.181710034459032
+"marital.status Separated:education Bachelors",-19.5881314630418
+"marital.status Widowed:education Bachelors",1.34276439442536
+"marital.status Married-civ-spouse:education Doctorate",-11.4620302474805
+"marital.status Never-married:education Doctorate",-32.4173304820764
+"marital.status Married-AF-spouse:education HS-grad",-177.246663190896
+"marital.status Married-civ-spouse:education HS-grad",-80.4527898526396
+"marital.status Married-spouse-absent:education HS-grad",-1.25695234675325
+"marital.status Never-married:education HS-grad",-0.459683133230833
+"marital.status Separated:education HS-grad",-2.57581764744178
+"marital.status Widowed:education HS-grad",1.11471855729741
+"marital.status Married-civ-spouse:education Masters",17.7947691435366
+"marital.status Married-spouse-absent:education Masters",17.3700261548288
+"marital.status Never-married:education Masters",19.1760702299483
+"marital.status Widowed:education Masters",16.0005332143026
+"marital.status Married-civ-spouse:education Preschool",-17.6693328067125
+"marital.status Married-civ-spouse:education Prof-school",0.406474631053921
+"marital.status Never-married:education Prof-school",15.1912198278324
+"marital.status Widowed:education Prof-school",6.54100369761956
+"marital.status Married-civ-spouse:education Some-college",-18.3821659519239
+"marital.status Married-spouse-absent:education Some-college",-0.0301197212357378
+"marital.status Never-married:education Some-college",-1.0622467497601
+"marital.status Separated:education Some-college",-0.925281062478292
+"marital.status Widowed:education Some-college",-0.867412526678165
+"marital.status Married-civ-spouse:workclass Local-gov",41.675369509497
+"marital.status Married-spouse-absent:workclass Local-gov",2.07072392175543
+"marital.status Never-married:workclass Local-gov",-1.27471089434694
+"marital.status Separated:workclass Local-gov",1.99832071266163
+"marital.status Widowed:workclass Local-gov",-0.0847315922883031
+"marital.status Married-AF-spouse:workclass Private",79.1485398311168
+"marital.status Married-civ-spouse:workclass Private",1.97486573819478
+"marital.status Married-spouse-absent:workclass Private",16.4028561472992
+"marital.status Never-married:workclass Private",-0.736221262027581
+"marital.status Separated:workclass Private",18.1354073737149
+"marital.status Widowed:workclass Private",-0.0719328332376958
+"marital.status Married-civ-spouse:workclass Self-emp-inc",16.7802033068395
+"marital.status Never-married:workclass Self-emp-inc",0.875566142168161
+"marital.status Separated:workclass Self-emp-inc",19.7501012511655
+"marital.status Married-civ-spouse:workclass Self-emp-not-inc",-38.4132023093803
+"marital.status Married-spouse-absent:workclass Self-emp-not-inc",17.2039497197495
+"marital.status Never-married:workclass Self-emp-not-inc",0.922712781086586
+"marital.status Separated:workclass Self-emp-not-inc",18.4578642245444
+"marital.status Widowed:workclass Self-emp-not-inc",2.10530463816373
+"marital.status Married-civ-spouse:workclass State-gov",42.3230904056407
+"marital.status Married-spouse-absent:workclass State-gov",-0.611444732129943
+"marital.status Never-married:workclass State-gov",-1.70772307510354
+"marital.status Separated:workclass State-gov",1.87825272577591
+"marital.status Widowed:workclass State-gov",-17.8625347769828
+"relationship Not-in-family:education 11th",28.8187417399342
+"relationship Other-relative:education 11th",45.98421223423
+"relationship Own-child:education 11th",27.1074113415065
+"relationship Unmarried:education 11th",12.0445060946679
+"relationship Wife:education 11th",-17.6732026484173
+"relationship Not-in-family:education 12th",-32.8524444621397
+"relationship Other-relative:education 12th",-1.40355772496541
+"relationship Own-child:education 12th",-50.1349237336871
+"relationship Unmarried:education 12th",-49.6912372130136
+"relationship Wife:education 12th",-2.08888315600109
+"relationship Not-in-family:education 1st-4th",-5.90225048749525
+"relationship Unmarried:education 1st-4th",-7.32379921272026
+"relationship Not-in-family:education 5th-6th",-44.1355420235604
+"relationship Other-relative:education 5th-6th",-0.328391884484615
+"relationship Own-child:education 5th-6th",-36.1855395068216
+"relationship Unmarried:education 5th-6th",-36.1450201034228
+"relationship Wife:education 5th-6th",-31.9516966079155
+"relationship Not-in-family:education 7th-8th",-0.532071747061468
+"relationship Other-relative:education 7th-8th",33.751940545273
+"relationship Own-child:education 7th-8th",-2.19774475250583
+"relationship Not-in-family:education 9th",1.07286894729095
+"relationship Other-relative:education 9th",18.465339456211
+"relationship Own-child:education 9th",-17.6954341087164
+"relationship Wife:education 9th",-36.498251811722
+"relationship Not-in-family:education Assoc-acdm",68.5480387505744
+"relationship Other-relative:education Assoc-acdm",86.6776316960827
+"relationship Own-child:education Assoc-acdm",-17.276073209588
+"relationship Unmarried:education Assoc-acdm",68.9901310449785
+"relationship Wife:education Assoc-acdm",1.78269275217959
+"relationship Not-in-family:education Assoc-voc",-39.5001879607456
+"relationship Other-relative:education Assoc-voc",-5.38255818083119
+"relationship Own-child:education Assoc-voc",-40.153068146811
+"relationship Unmarried:education Assoc-voc",-38.4130893646272
+"relationship Wife:education Assoc-voc",-0.116675940151284
+"relationship Not-in-family:education Bachelors",-0.667995699076724
+"relationship Other-relative:education Bachelors",-15.4957338570746
+"relationship Own-child:education Bachelors",-2.34847461877419
+"relationship Unmarried:education Bachelors",-1.34651679237978
+"relationship Wife:education Bachelors",0.971218995138479
+"relationship Not-in-family:education Doctorate",63.5632343729102
+"relationship Not-in-family:education HS-grad",-63.678098116625
+"relationship Other-relative:education HS-grad",-30.6527483747033
+"relationship Own-child:education HS-grad",-65.8841806002615
+"relationship Unmarried:education HS-grad",-64.5781742626102
+"relationship Wife:education HS-grad",1.71780659225266
+"relationship Not-in-family:education Masters",16.710845626096
+"relationship Own-child:education Masters",-3.06434276808114
+"relationship Wife:education Masters",1.69466812774587
+"relationship Not-in-family:education Some-college",-1.93152362913449
+"relationship Other-relative:education Some-college",15.1496944858522
+"relationship Own-child:education Some-college",-3.72377766951473
+"relationship Unmarried:education Some-college",-2.37277048114236
+"relationship Wife:education Some-college",0.98864632837555
+"relationship Not-in-family:workclass Local-gov",42.9290493498091
+"relationship Other-relative:workclass Local-gov",41.8151744511454
+"relationship Own-child:workclass Local-gov",68.4687290537182
+"relationship Unmarried:workclass Local-gov",40.6251056174679
+"relationship Wife:workclass Local-gov",-0.957958488925928
+"relationship Not-in-family:workclass Private",2.41308749449857
+"relationship Other-relative:workclass Private",15.9055216584741
+"relationship Own-child:workclass Private",43.9670205386324
+"relationship Unmarried:workclass Private",1.54416077000101
+"relationship Wife:workclass Private",-1.05550204439869
+"relationship Not-in-family:workclass Self-emp-inc",-0.823776138423591
+"relationship Other-relative:workclass Self-emp-inc",12.4996751930192
+"relationship Own-child:workclass Self-emp-inc",42.1781601862697
+"relationship Wife:workclass Self-emp-inc",-0.41659280509591
+"relationship Not-in-family:workclass Self-emp-not-inc",-37.6603647939586
+"relationship Other-relative:workclass Self-emp-not-inc",-41.0989440607131
+"relationship Own-child:workclass Self-emp-not-inc",3.49791203002493
+"relationship Unmarried:workclass Self-emp-not-inc",-37.563634258145
+"relationship Wife:workclass Self-emp-not-inc",1.96094428119523
+"relationship Not-in-family:workclass State-gov",43.3041867661349
+"relationship Other-relative:workclass State-gov",43.1240087688693
+"relationship Own-child:workclass State-gov",85.1627476764777
+"relationship Unmarried:workclass State-gov",43.0148046004491
+"relationship Wife:workclass State-gov",-1.34507647606417
+"education 11th:workclass Local-gov",-0.287327644277549
+"education 12th:workclass Local-gov",-0.590176562133715
+"education 7th-8th:workclass Local-gov",18.4638442393427
+"education 9th:workclass Local-gov",19.4442877841741
+"education Assoc-acdm:workclass Local-gov",0.0273751831930677
+"education Assoc-voc:workclass Local-gov",-0.705065380405879
+"education Bachelors:workclass Local-gov",0.427435905783792
+"education HS-grad:workclass Local-gov",0.109025023750307
+"education Masters:workclass Local-gov",-0.894323336336286
+"education Prof-school:workclass Local-gov",0.272831716024142
+"education Some-college:workclass Local-gov",0.125952258219422
+"education 11th:workclass Private",-19.6938340587972
+"education 12th:workclass Private",-0.478485013847833
+"education 1st-4th:workclass Private",16.8569614312898
+"education 5th-6th:workclass Private",-25.4120069836083
+"education 7th-8th:workclass Private",-1.33099326259003
+"education 9th:workclass Private",0.206595034518006
+"education Assoc-acdm:workclass Private",-17.2629434796073
+"education Assoc-voc:workclass Private",-18.7567050416615
+"education Bachelors:workclass Private",-16.8920395937349
+"education Doctorate:workclass Private",-17.5667666479696
+"education HS-grad:workclass Private",-17.6462056581451
+"education Masters:workclass Private",-18.3212688829656
+"education Prof-school:workclass Private",-37.8259823502452
+"education Some-college:workclass Private",-16.9221724838108
+"education 11th:workclass Self-emp-inc",19.3219937221501
+"education 12th:workclass Self-emp-inc",-0.465338255989457
+"education 5th-6th:workclass Self-emp-inc",14.6836044755258
+"education 7th-8th:workclass Self-emp-inc",20.5190717104454
+"education 9th:workclass Self-emp-inc",34.0276994360524
+"education Assoc-acdm:workclass Self-emp-inc",-0.950970361580754
+"education Assoc-voc:workclass Self-emp-inc",-0.935821522958171
+"education Bachelors:workclass Self-emp-inc",-0.178872371567003
+"education HS-grad:workclass Self-emp-inc",0.765700659357499
+"education Masters:workclass Self-emp-inc",-20.6450391563848
+"education Some-college:workclass Self-emp-inc",0.560362785889887
+"education 11th:workclass Self-emp-not-inc",-20.3599515336185
+"education 12th:workclass Self-emp-not-inc",-0.409488692058513
+"education 5th-6th:workclass Self-emp-not-inc",-22.8746209043239
+"education 9th:workclass Self-emp-not-inc",-0.207372655292088
+"education Assoc-acdm:workclass Self-emp-not-inc",-18.2475533682091
+"education Assoc-voc:workclass Self-emp-not-inc",-20.1771234100208
+"education Bachelors:workclass Self-emp-not-inc",-17.6877415389693
+"education HS-grad:workclass Self-emp-not-inc",-17.8238534035474
+"education Masters:workclass Self-emp-not-inc",-18.5337982925327
+"education Prof-school:workclass Self-emp-not-inc",-76.6720251084801
+"education Some-college:workclass Self-emp-not-inc",-17.2768812818578
+"education 11th:workclass State-gov",-19.2362141429096
+"education 12th:workclass State-gov",-0.206593215247574
+"education Assoc-acdm:workclass State-gov",0.799440501701366
+"education Assoc-voc:workclass State-gov",-2.49720829146341
+"education Bachelors:workclass State-gov",0.208975406191508
+"education HS-grad:workclass State-gov",-0.059947430554372
+"education Masters:workclass State-gov",-1.15208219949749
+"education Some-college:workclass State-gov",-0.1847441723246
+"education HS-grad:workclass Without-pay",-0.377007865468441

@@ -1,0 +1,247 @@
+---
+title: 'Proof of concept: Statistical adjustments in Redhyte'
+author: "Toh Wei Zhong"
+date: "Friday, May 29, 2015"
+output: html_document
+---
+
+## Introduction
+
+The current iteration of Redhyte works by stratification, in two steps: context mining and mined hypotheses formulation and scoring. Context mining refers to the process of searching for attributes in the dataset that may be interesting to consider, when they are used as context items for stratification.
+
+One of the main objectives of Redhyte was to search for and deal with confounders. The other popular method for dealing with confounders, besides stratification, is statistical adjustment, i.e. including attributes that could confound in a linear model, together with the attributes of interest. For instance, if we are interested in lung cancer incidence and smoking status, we could build a model predicting lung cancer incidence, using smoking status and e.g. age or income as covariates.
+
+The following proof of concept depicts a possible extension of Redhyte towards statistical adjustments. Concretely, the user had an initial test done in Redhyte. What we want to do is to *compare, after some form of adjustments, an additional test with the initial test.*
+
+### Settings of POC
+
+* We are using the adult dataset.
+* Both the target and comparing attributes are categorical and binary. Recall that in Redhyte, we asked the user to stipulate target and comparing attributes to do an initial test. The target attribute could be either numerical or categorical, while the comparing attribute is strictly categorical. Here, we are only considering categorical target attributes.
+* We assume context mining has been done, and we have shortlisted 5 attributes that are potentially interesting. They are sex, marital status, relationship, education, and workclass.
+* The initial hypothesis: is there a difference in income (>50K or <= 50K) when comparing the samples on occupation between Adm-clerical and Craft-repair?
+
+## Method
+### Load dataset
+Let's go. Start by loading dataset:
+```{r load_data}
+df<-read.csv("C:/Users/Toh Wei Zhong/Documents/R/redhyte-lab/data/adult.txt",
+             stringsAsFactors=T,sep=",")
+str(df)
+```
+
+### Set up initial hypothesis
+
+* Target attribute: income
+* Comparing attribute: occupation, Adm-clerical vs. craft-repair
+```{r initial_hypothesis_setup}
+atgt<-"income"
+acmp<-"occupation"
+rows<-union(which(df[,acmp] == " Adm-clerical"),
+            which(df[,acmp] == " Craft-repair"))
+df.ctx<-df[rows,]
+df.ctx<-droplevels(df.ctx)
+
+# drop unneccessary variables
+df.ctx<-df.ctx[,c("income","occupation",
+                  "sex","marital.status","relationship","education","workclass")]
+
+# initial test
+chisq.test(tab<-t(table(df.ctx$income,df.ctx$occupation)))
+```
+
+### Stepwise regression
+The first thing we will do, is to further shortlist, from the list of 5 shortlisted attributes, a subset of attributes. The reason for this additional variable selection step will be made known later. Here, we will use a simple backward stepwise regression algorithm (selection criterion: AIC):
+
+```{r stepwise_reg}
+primary.mod<-glm(income~.,data=df.ctx,
+                 family=binomial(link=logit))
+step.mod<-step(primary.mod,direction="backward")
+summary(step.mod)
+```
+
+It turns out here that all the 5 attributes are good, and none gets kicked out from the following procedures.
+
+Next, since we have a categorical target attribute, we use a logistic model to attempt statistical adjustment. We call this model the **adjustment model**. The dependent variable is the target attribute, while the covariates are the comparing attribute, together with variables shortlisted by the previous stepwise regression algorithm. The reason why we did stepwise regression earlier, is that in the adjustment model, we are going to consider first-order interaction terms (reason for including interaction terms will be made known later). With interaction terms, the "size" of the model increases considerably with each included covariate, especially if the covariates are categorical. This is why the stepwise regression was used.
+
+### Statistical adjustments using logistic regression
+```{r adjustment_model}
+# simple function to generate formula with interaction terms:
+itr.formula<-function(vec,tgt){
+  fm<-paste(tgt,paste0(vec,collapse="+"),sep="~")
+  tmp<-outer(vec,
+             vec,
+             paste,sep="*")
+  tmp<-tmp[lower.tri(tmp,diag=F)]
+  tmp<-paste0(tmp,collapse="+")
+  fm<-paste(fm,tmp,sep="+")
+  return(as.formula(fm))
+}
+
+# construct adjustment model:
+mod<-glm(itr.formula(vec=colnames(df.ctx)[-1],tgt=atgt),
+         family=binomial(link=logit),data=df.ctx)
+```
+
+Here, all the covariates in the model are categorical attributes. The model has a total of 333 coefficients, representing classes within each categorical covariate (and their pairwise interactions).
+
+### "What-if" analysis
+Now, we consider the following: suppose we have a dataset that is so well-collected, there are no confounders. To illustrate, **what if** our lung cancer-smoking status dataset consists of only males, with the same income, same age, etc? Then confounding would be a non-issue. Of course, in reality this is not possible; but the adjustment model we have constructed above gives us a way to actualise this - using the coefficients in the model, we can "substitute in" certain values to make a prediction on the target attribute. An example here would be instructive:
+
+
+```{r whatif1}
+# let's first consider the initial hypothesis and proportions:
+tab<-t(table(df.ctx$income,df.ctx$occupation))
+initial.prob<-c(tab[1,2]/sum(tab[1,]),
+                tab[2,2]/sum(tab[2,]))
+names(initial.prob)<-c(" Adm-clerical"," Craft-repair")
+initial.prob
+
+# "what if" analysis:
+# consider a certain combination of values
+
+# newdata
+newdata1<-data.frame(
+  occupation=" Adm-clerical",
+  sex=" Male",
+  marital.status=" Married-civ-spouse",
+  relationship=" Husband",
+  education=" 7th-8th",
+  workclass=" Self-emp-not-inc",stringsAsFactors=FALSE)
+
+newdata1<-rbind(newdata1,
+                data.frame(
+                  occupation=" Craft-repair",
+                  sex=" Male",
+                  marital.status=" Married-civ-spouse",
+                  relationship=" Husband",
+                  education=" 7th-8th",
+                  workclass=" Self-emp-not-inc",stringsAsFactors=FALSE))
+newdata1$prob<-predict(mod,newdata1,type="response")
+
+newdata1
+```
+
+The above code snippet generates two different samples that differs only in their occupation, ceteris paribus. We then make a prediction using the adjustment model we constructed.
+
+A technical point here is crucial: because the logistic regression model only can predict probabilities (and not actual classes of >50 or <=50K), we can only work with probabilities. Naive conversion of probabilities to actual classes, using e.g. a 0.5 probability threshold or ROC-AUC, are not meaningful approaches.
+
+Let's consider more sets of "what-if"s:
+
+```{r whatif2_and_whatif3}
+newdata2<-data.frame(
+  occupation=" Adm-clerical",
+  sex=" Male",
+  marital.status=" Never-married",
+  relationship=" Unmarried",
+  education=" Bachelors",
+  workclass=" Self-emp-not-inc",stringsAsFactors=FALSE)
+newdata2<-rbind(newdata2,
+                data.frame(
+                  occupation=" Craft-repair",
+                  sex=" Male",
+                  marital.status=" Never-married",
+                  relationship=" Unmarried",
+                  education=" Bachelors",
+                  workclass=" Self-emp-not-inc",stringsAsFactors=FALSE))
+newdata2$prob<-predict(mod,newdata2,type="response")
+
+newdata3<-data.frame(
+  occupation=" Adm-clerical",
+  sex=" Male",
+  marital.status=" Never-married",
+  relationship=" Unmarried",
+  education=" HS-grad",
+  workclass=" Self-emp-not-inc",stringsAsFactors=FALSE)
+newdata3<-rbind(newdata3,
+                data.frame(
+                  occupation=" Craft-repair",
+                  sex=" Male",
+                  marital.status=" Never-married",
+                  relationship=" Unmarried",
+                  education=" HS-grad",
+                  workclass=" Self-emp-not-inc",stringsAsFactors=FALSE))
+newdata3$prob<-predict(mod,newdata3,type="response")
+
+newdata2
+newdata3
+```
+
+### Visualization
+Visualizing,
+```{r, viz}
+plot.dat<-data.frame(Initial=initial.prob,
+                     Whatif1=newdata1$prob,
+                     Whatif2=newdata2$prob,
+                     Whatif3=newdata3$prob)
+barplot(as.matrix(plot.dat), main="Income ~ Occupation", ylab="Pr(Income >50K)", beside=TRUE, 
+        col=terrain.colors(2),ylim=c(0,1))
+legend("topright", c("Adm-clerical","Craft-repair"), cex=0.8, 
+       fill=terrain.colors(2))
+```
+
+### Statistical test
+In such a set-up, the only natural test is the z-test on proportions:
+```{r z_test}
+# z-tests on proportions
+# initial test
+sample.sz<-nrow(df.ctx)
+t0<-prop.test(initial.prob*sample.sz,c(sample.sz,sample.sz))
+pv<-t0$p.value
+
+# newdata
+newdata1$counts<-round(newdata1$prob*sample.sz)
+t1<-prop.test(newdata1$counts,c(sample.sz,sample.sz))
+pv<-c(pv,t1$p.value)
+t1
+
+newdata2$counts<-round(newdata2$prob*sample.sz)
+t2<-prop.test(newdata2$counts,c(sample.sz,sample.sz))
+pv<-c(pv,t2$p.value)
+t2
+
+newdata3$counts<-round(newdata3$prob*sample.sz)
+t3<-prop.test(newdata3$counts,c(sample.sz,sample.sz))
+pv<-c(pv,t3$p.value)
+t3
+```
+
+Let's go ahead and include information about the p-values in the plot:
+```{r viz2}
+pv.star<-sapply(pv,FUN=function(pv){
+  stars<-""
+  if(pv<0.05)  stars<-paste(stars,"*",sep="")
+  if(pv<0.01)  stars<-paste(stars,"*",sep="")
+  if(pv<0.001) stars<-paste(stars,"*",sep="")
+  stars
+})
+plot.dat<-data.frame(Initial=initial.prob,
+                     Whatif1=newdata1$prob,
+                     Whatif2=newdata2$prob,
+                     Whatif3=newdata3$prob)
+barplot(as.matrix(plot.dat), main="Income ~ Occupation", ylab="Pr(Income >50K)", beside=TRUE, 
+        col=terrain.colors(2),ylim=c(0,1))
+legend("topright", c("Adm-clerical","Craft-repair"), cex=0.8, 
+       fill=terrain.colors(2))
+for(i in seq(4)){
+  if(i == 1){incre<-1}
+  else{incre<-incre+2}
+  text(x=i+incre,y=max(plot.dat[,i])+0.1,pv.star[i])
+}
+```
+
+
+### Summary
+Key takeaways:
+
+1. We used logistic regression to predict the target attribute, using the comparing attribute and attributes shortlisted from context mining.
+1. The initial test was a chi-sq test, the "adjusted test" is a z-test on proportions. They are numerically different but essentially conceptually the same.
+1. Only when interaction terms are considered, may Simpson's Reversal (e.g. Whatif1 above) surface.
+1. Logistic regression output probabilities, and I cannot think of any meaningful way to convert them to actual binary classes. Will continue to search for ideas.
+1. For the UI, I propose having the user decide which classes from each shortlisted attribute they wish to consider in the "what-if" analysis. The flavor is hence similiar to what we have in the current iteration of Redhyte, where users select mined context items and include them in the initial hypothesis for comparison. (Also, "What-if" analysis sounds strange, I will come up with something else.)
+1. For numerical target attributes, there are three possible approaches:
++ Discretize, and use the method above
++ Build a simple linear model as above (not logistic model), "sub in" fixed values (as above) to get expectation/mean, then compare means between the two groups in a test, e.g.
+
+> E(Lung cancer) = intercept + (smoking status) + (confounders) + (interactions)
+
++ Build a simple linear model as above, but don't sub in fixed values: instead, for each sample in the dataset, get a predicted Yhat. The Yhat becomes an "adjusted" dataset, and work with this "adjusted dataset" accordingly. The problem with this approach is that there is no analogous counterpart when the target attribute is categorical! (unless I can find a way to convert logistic regression probabilities to actual classes, as in point 4 above.)

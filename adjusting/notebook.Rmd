@@ -1,0 +1,63 @@
+---
+title: "Notebook: doing statistical adjustments in Redhtye"
+author: "Toh Wei Zhong"
+date: "Tuesday, May 26, 2015"
+output: html_document
+---
+
+***
+
+Want to do adjustments:
+
+1. Have to use linear models
+  + OLS for numerical target attribute
+  + Logistic regression for categorical target attribute
+2. Build one single model, using the following as covariates
+  + Comparing attribute
+  + Mined context attributes (from context mining)
+3. From a linear model, we can get:
+  + Coefficients related to Acmp, and tests on them
+  + Predicted values, which we can treat as adjusted Atgt values
+  + Coefficients related to the Actx*, which can be used to consider "typical" samples (using fixed values)
+  
+Different approaches:
+
+* Considering different "typical" samples (what-if analysis)
+* Testing on regression coefficients (differences in mean) (not really keen on this)
+* Using predicted values as adjusted Atgt (only works for numerical Atgt)
+
+The key idea is to have the initial test be compared with an "adjusted test". The adjusted test may be a test on an adjusted dataset, or it could be an equivalent test, in the adjustment model, or outside of it (e.g. z-test of proportions).
+
+**Also, derive some form of visualization for pre- and post-adjustment for mined Actx**.
+
+typical sample works for cate. Atgt
+
+26/05/2015
+
+Here's the plan:
+
+1. discretize Atgt
+2. build logistic regression on tgt.class
+3. the "what if" approach: what if all the samples in the data is of the same "type" wrt Actx*? Substitute fixed values for the mined Actx, get a probability of success. Then use z-test (prop.test) for proportions
+4. viz would be barplots
+
+27/05/2015
+
+* Managed to actualize the approach above (what-if.R), and plotted the barplots.
+
+* Compared results with that from Redhyte: for context items that form SR with the initial hypothesis, logistic regression is unable to give SR, unless higher order terms (i.e. interaction terms) are considered.
+
+* Prop.test works fine.
+
+* Will be very apt to introduce some form of variable selection method before constructing the logistic model, since having interaction terms concerning categorical variables considerably expands the model (in terms of number of coefficients)
+
+* there are too many combinations to consider for the barplots, so for starters, plot the combinations that most likely to lead to Simpson's Reversal, and then allow users to select combinations
+* to choose such combinations, use the results from hypothesis mining:
+select those with SR=TRUE
+
+29/05/2015
+
+* used expand.grid to create all combinations of Acmp and Actx,
+use them for prediction of probabilities in adjustment model
+
+

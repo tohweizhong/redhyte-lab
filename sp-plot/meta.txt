@@ -1,0 +1,1 @@
+test_sp_plot.csv is based on income hypothesis, mined context item is sex=male
