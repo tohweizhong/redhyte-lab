@@ -98,3 +98,5 @@ hist(adj1$fit)
 # test
 
 #t1 <- 
+
+###
