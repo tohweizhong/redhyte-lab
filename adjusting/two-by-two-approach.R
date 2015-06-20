@@ -37,10 +37,13 @@ step.mod<-step(primary.mod,direction="backward")
 
 mod0 <- glm(income ~ occupation, data = df.ctx,
             family = binomial(link = logit))
+
 # now get the null probabilities
 prob0 <- predict(mod0,
                  subset(df.ctx, select = -income),
                  type = "response")
+
+hist(prob0)
 
 mod1 <- glm(itr.formula(vec=colnames(df.ctx)[-1],tgt=atgt),
          family=binomial(link=logit),data=df.ctx)
@@ -51,6 +54,10 @@ prob1 <- predict(mod1,
                  type = "response")
 
 ### test & what-if analysis: already documented in adjustments.html
+
+
+
+
 
 # numerical target attribute
 atgt<-"age"
@@ -84,7 +91,7 @@ adj1 <- predict(mod1,
                 se.fit = TRUE)
 
 hist(df.ctx$age)
-hist(adj1)
+hist(adj1$fit)
 
 # scatterplot don't really make any sense
 
