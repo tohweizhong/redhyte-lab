@@ -25,7 +25,7 @@ print(tab0 <- t(table(df.ctx[,c("income","occupation")])))
 prop0 <- c(507/(507+3263), 929/(929+3170))
 sup0 <- c(3263+507, 3170+929)
         
-# sex = Female
+# education == Masters
 rows.female <- which(df.ctx$education == " Masters")
 df.ctx1 <- df.ctx[rows.female,]
 print(tab1 <- t(table(df.ctx1[,c("income","occupation")])))
@@ -61,7 +61,6 @@ gg<-gg+geom_segment(aes(x=plot.dat$sup[1:2],
                         xend=plot.dat$sup[3:4],
                         yend=plot.dat$prop[3:4]),
                         arrow=arrow())
-
 
 gg<-gg+ theme_bw()+th
 gg
