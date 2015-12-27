@@ -28,8 +28,8 @@ MineCtx <- function(df, Atgt, Acmp, p = 0.7, numCtx = 5, metric = "auc"){
         y_tgt <- subset(df_tgt, select = Atgt)[,1]
         y_cmp <- subset(df_cmp, select = Acmp)[,1]
         
-        tgt_idx <- createDataPartition(ytrain_tgt, p = p, list = FALSE)
-        cmp_idx <- createDataPartition(ytrain_cmp, p = p, list = FALSE)
+        tgt_idx <- createDataPartition(y_tgt, p = p, list = FALSE)
+        cmp_idx <- createDataPartition(y_cmp, p = p, list = FALSE)
         
         Xtrain_tgt <- df_tgt[ tgt_idx, -which(colnames(df_tgt) == Atgt)]
         Xtest_tgt  <- df_tgt[-tgt_idx, -which(colnames(df_tgt) == Atgt)]
@@ -41,8 +41,8 @@ MineCtx <- function(df, Atgt, Acmp, p = 0.7, numCtx = 5, metric = "auc"){
         ytrain_cmp <- y_cmp[ cmp_idx]
         ytest_cmp  <- y_cmp[-cmp_idx]
         
-        print(colnames(Xtrain_tgt)); print(colnames(Xtrain_cmp))
-        print(table(ytrain_tgt)); print(table(ytrain_cmp))
+        #print(colnames(Xtrain_tgt)); print(colnames(Xtrain_cmp))
+        #print(table(ytrain_tgt)); print(table(ytrain_cmp))
         
         # Get the formulae
         predictors <- colnames(df)[-which(colnames(df) == Atgt)]
@@ -57,9 +57,6 @@ MineCtx <- function(df, Atgt, Acmp, p = 0.7, numCtx = 5, metric = "auc"){
         mod_tgt <- randomForest(x = Xtrain_tgt, y = ytrain_tgt, importance = TRUE)
         print("Constructing comparing model...")
         mod_cmp <- randomForest(x = Xtrain_cmp, y = ytrain_cmp, importance = TRUE)
-        
-        # Variable importance plots
-        varImpPlot(mod_tgt); varImpPlot(mod_cmp)
         
         # Make predictions on testing sets
         mod_tgt_pred_prob  <- predict(mod_tgt, newdata = Xtest_tgt, type = "prob")[,1]

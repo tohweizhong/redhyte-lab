@@ -3,7 +3,7 @@
 
 # function to convert all numeric variables by the dataset into categorical variables
 
-Discretize <- function(df, ){
+Discretize <- function(df, by = "mean"){
         
         ncols <- ncol(df)
         
@@ -11,9 +11,11 @@ Discretize <- function(df, ){
                 return(class(df[,c]))
         }))
         
-        which_are_num <- union(which(classes == "integer"), which(classes = "numeric"))
+        which_are_num <- union(which(classes == "integer"), which(classes == "numeric"))
         
+        # v: vector, t: numeric threshold
         BinBy <- function(v, t){
+                
                 returnMe <- NULL
                 for(i in seq(length(v))){
                         if(v[i] >= t) returnMe <- c(returnMe, paste0("above", t))
@@ -24,9 +26,10 @@ Discretize <- function(df, ){
         
         for(ii in which_are_num){
                 
-                m <- mean(df[,i])
+                m <- round(mean(df[,ii]), digits = 1)
+                df[,ii] <- factor(BinBy(df[,ii], m))
                 
         }
         
-        return(classes)
+        return(df)
 }

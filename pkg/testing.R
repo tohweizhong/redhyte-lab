@@ -4,7 +4,16 @@
 
 # Script to test various functions in packaging
 
+source("pkg/MineCtx.R")
+source("pkg/Discretize.R")
+
 df <- read.csv("data/adult.txt", header = TRUE, stringsAsFactors = TRUE, strip.white = TRUE)
+
+# ====
+
+# Test Discretize()
+
+df <- Discretize(df)
 
 # ====
 
@@ -18,5 +27,8 @@ df.ctx<-df[rows,]
 df.ctx<-droplevels(df.ctx)
 
 mods <- MineCtx(df = df.ctx, Atgt = "income", Acmp = "occupation")
+
+# Variable importance plots
+varImpPlot(mods[["mod_tgt"]]); varImpPlot(mods[["mod_cmp"]])
 
 # ====
