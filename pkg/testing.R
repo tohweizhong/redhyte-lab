@@ -6,6 +6,7 @@
 
 source("pkg/MineCtx.R")
 source("pkg/Discretize.R")
+source("pkg/Subset.R")
 
 df <- read.csv("data/adult.txt", header = TRUE, stringsAsFactors = TRUE, strip.white = TRUE)
 
@@ -17,14 +18,13 @@ df <- Discretize(df)
 
 # ====
 
-# Test MineCtx()
+# Test Subset()
 
-Atgt<-"income"
-Acmp<-"occupation"
-rows<-union(which(df[,Acmp] == "Adm-clerical"),
-            which(df[,Acmp] == "Craft-repair"))
-df.ctx<-df[rows,]
-df.ctx<-droplevels(df.ctx)
+df.ctx <- Subset(df, Atgt = "income", Acmp = "occupation", Acmp_classes = c("Adm-clerical", "Craft-repair"))
+
+# ====
+
+# Test MineCtx()
 
 mods <- MineCtx(df = df.ctx, Atgt = "income", Acmp = "occupation")
 
@@ -32,3 +32,5 @@ mods <- MineCtx(df = df.ctx, Atgt = "income", Acmp = "occupation")
 varImpPlot(mods[["mod_tgt"]]); varImpPlot(mods[["mod_cmp"]])
 
 # ====
+
+
