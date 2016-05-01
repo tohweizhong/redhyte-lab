@@ -47,5 +47,6 @@ IH <- InitialHypothesis(Atgt = "income", Acmp = "occupation",
                         Actx_items = "", df = df)
 
 
+InitialTest(IH)
 
 

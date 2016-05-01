@@ -1,10 +1,18 @@
 
-# InitialHypothesis.R
+# initialHy.R
+# @ data: data
+# @ Atgt: target attribute
+# @ Acmp: comparing attribute
+# @ Atgt_cl: Atgt classes in hypothesis
+# @ Acmp_cl: Acmp classes in hypothesis
+# @ Atgt_dist: e.g. c(1,1,2); length(Atgt_dist) == length(Atgt_cl)
+# @ Acmp_dist: e.g. c(1,1,2); length(Acmp_dist) == length(Acmp_cl)
+# @ Actx_items: c("A1 = c1", "A2 = c2")
 
-InitialHypothesis <- function(df, Atgt, Acmp,
-                              Atgt_cl = "", Acmp_cl = "",
-                              Atgt_dist = 0, Acmp_dist = 0,
-                              Actx_items = ""){
+initialHy <- function(data, Atgt, Acmp,
+                      Atgt_cl = "", Acmp_cl = "",
+                      Atgt_dist = 0, Acmp_dist = 0,
+                      Actx_items = ""){
         
         # Actx_items is the format of
         # c("A1 = c1", "A2 = c2", ...)

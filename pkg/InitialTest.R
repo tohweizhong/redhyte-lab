@@ -1,12 +1,13 @@
 
 # initial test
 
-InitialTest <- function(df, Atgt, Acmp, Atgt_classes = "", Acmp_classes = ""){
+InitialTest <- function(IH){
         
-        # get contexted data
-        df.ctx <- Subset(df, Atgt = Atgt, Acmp = Acmp,
-                         Atgt_classes = Atgt_classes, Acmp_classes = Acmp_classes)
-        
+        Atgt <- IH[["Atgt"]]
+        Acmp <- IH[["Acmp"]]
+        Atgt_classes <- IH[["Atgt_classes"]]
+        Acmp_classes <- IH[["Acmp_classes"]]
+        df.ctx <- IH[["df.ctx"]]
         
         if(class(df.ctx[,Atgt]) == "factor"){
                 tab <- table(df.ctx[,Atgt], df.ctx[,Acmp])
@@ -16,7 +17,6 @@ InitialTest <- function(df, Atgt, Acmp, Atgt_classes = "", Acmp_classes = ""){
              test <- t.test(df.ctx[,Atgt] ~ df.ctx[,Acmp])   
         }
         return(test)
-        
 }
 
 
