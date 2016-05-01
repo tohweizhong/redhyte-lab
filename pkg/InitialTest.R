@@ -1,7 +1,7 @@
 
 # initial test
 
-InitialTest <- function(IH){
+initialTest <- function(IH){
         
         Atgt <- IH[["Atgt"]]
         Acmp <- IH[["Acmp"]]
@@ -17,6 +17,6 @@ InitialTest <- function(IH){
              test <- t.test(df.ctx[,Atgt] ~ df.ctx[,Acmp])   
         }
         return(test)
-}
 
+}
 

@@ -30,6 +30,5 @@ Discretize <- function(df, by = "mean"){
                 df[,ii] <- factor(BinBy(df[,ii], m))
                 
         }
-        
         return(df)
 }

@@ -59,8 +59,14 @@ initialHy <- function(data, Atgt, Acmp,
                 }
                 df.ctx <- df.ctx[idx_ctx,]
         }
+        
+        # after subsetting, assign class for both Atgt and Acmp
+        # tgt_cl and cmp_cl
+        #Atgt_dist
+        
+        
         return(list(Atgt = Atgt, Acmp = Acmp,
                     Atgt_cl = Atgt_cl,
                     Acmp_cl = Acmp_cl,
-                    df.ctx = df.ctx))
+                    df_ctx = df.ctx))
 }
