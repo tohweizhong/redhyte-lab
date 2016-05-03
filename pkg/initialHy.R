@@ -9,15 +9,20 @@
 # @ Acmp_dist: e.g. c(1,1,2); length(Acmp_dist) == length(Acmp_cl)
 # @ Actx_items: c("A1 = c1", "A2 = c2")
 
-initialHy <- function(data, Atgt, Acmp,
+initialHy <- function(dat, Atgt, Acmp,
                       Atgt_cl = "", Acmp_cl = "",
                       Atgt_dist = 0, Acmp_dist = 0,
                       Actx_items = ""){
         
+        require(magrittr)
+        
+        # hyType
+        Atgt_type = ifelse(is.factor(dat[,Atgt]),"cate", "num")
+        ht <- hyType(Atgt_type = Atgt_type, Atgt_cl = Atgt_cl, Acmp_cl = Acmp = cl,
+                     Atgt_dist = Atgt_dist, Acmp_dist = Acmp_dist)
+        
         # Actx_items is the format of
         # c("A1 = c1", "A2 = c2", ...)
-        
-        require(magrittr)
         
         # Atgt
         if(Atgt_cl %>% length == 1 && Atgt_cl %>% nchar == 0)
@@ -39,7 +44,7 @@ initialHy <- function(data, Atgt, Acmp,
         }
         #else idx_cmp <- NULL
         
-        # take union
+        # take intersect
         rows   <- intersect(idx_tgt, idx_cmp)
         df.ctx <- df[rows,]
         df.ctx <- droplevels(df.ctx)
@@ -62,7 +67,7 @@ initialHy <- function(data, Atgt, Acmp,
         
         # after subsetting, assign class for both Atgt and Acmp
         # tgt_cl and cmp_cl
-        #Atgt_dist
+        df.ctx <- AddClass(df.ctx)
         
         
         return(list(Atgt = Atgt, Acmp = Acmp,

@@ -5,6 +5,8 @@
 
 # ====
 
+library(magrittr)
+
 # source all scripts for all functions
 ok <- list.files("pkg") %>% sapply(., FUN = function(f){
         if(f != "testing.R"){
@@ -46,6 +48,7 @@ varImpPlot(mods[["mod_tgt"]]); varImpPlot(mods[["mod_cmp"]])
 # Test InitialHypothesis() object
 
 ih <- initialHy(data = df, Atgt = "workclass", Acmp = "occupation",
+                Atgt_dist = c(1,2), Acmp_dist = c(1,2),
                 Atgt_cl = c("Federal-gov", "State-gov"), Acmp_cl = c("Adm-clerical", "Craft-repair"),
                 Actx_items = "")
 
