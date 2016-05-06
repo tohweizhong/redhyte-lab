@@ -2,8 +2,12 @@
 # Discretize.R
 
 # function to convert all numeric variables by the dataset into categorical variables
+# except Atgt and Acmp
 
-Discretize <- function(df, by = "mean"){
+Discretize <- function(df, Atgt, Acmp, by = "mean"){
+        
+        df <- df[, !(colnames(df) %in% c(eval(Atgt), eval(Acmp)))]
+        str(df)
         
         ncols <- ncol(df)
         

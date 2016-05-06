@@ -5,25 +5,6 @@
 
 # ====
 
-library(magrittr)
-
-# source all scripts for all functions
-ok <- list.files("pkg") %>% sapply(., FUN = function(f){
-        if(f != "testing.R"){
-                paste0("pkg/", f) %>% source
-        }
-        return(TRUE)
-})
-
-df <- read.csv("data/adult.txt", header = TRUE, stringsAsFactors = TRUE, strip.white = TRUE)
-
-Atgt <- "income"
-Acmp <- "occupation"
-Atgt_classes <- ""
-Acmp_classes <- c("Adm-clerical", "Craft-repair")
-
-# ====
-
 # Test Discretize()
 
 df <- Discretize(df)
@@ -38,21 +19,20 @@ df.ctx <- Subset(df, Atgt = "income", Acmp = "occupation", Acmp_classes = c("Adm
 
 # Test MineCtx()
 
-mods <- MineCtx(df = df.ctx, Atgt = "income", Acmp = "occupation")
+mods <- MineCtx(df = df.ctx, Atgt = "                                                                                                                                               ", Acmp = "occupation")
 
 # Variable importance plots
 varImpPlot(mods[["mod_tgt"]]); varImpPlot(mods[["mod_cmp"]])
 
 # ====
 
-# Test InitialHypothesis() object
+# Test InitialHypothesis() object and initialTest
 
-ih <- initialHy(data = df, Atgt = "workclass", Acmp = "occupation",
-                Atgt_dist = c(1,2), Acmp_dist = c(1,2),
-                Atgt_cl = c("Federal-gov", "State-gov"), Acmp_cl = c("Adm-clerical", "Craft-repair"),
+ih <- initialHy(df = df, Atgt = Atgt, Acmp = Acmp,
+                Atgt_dist = Atgt_dist, Acmp_dist = Acmp_dist,
+                Atgt_cl = Atgt_cl, Acmp_cl = Acmp_cl,
                 Actx_items = "")
-
-
-InitialTest(ih)
+ 
+it <- initialTest(ih)
 
 
