@@ -19,7 +19,7 @@ df.ctx <- Subset(df, Atgt = "income", Acmp = "occupation", Acmp_classes = c("Adm
 
 # Test MineCtx()
 
-mods <- MineCtx(df = df.ctx, Atgt = "                                                                                                                                               ", Acmp = "occupation")
+#mods <- MineCtx(df = df.ctx, Atgt = "                                                                                                                                               ", Acmp = "occupation")
 
 # Variable importance plots
 varImpPlot(mods[["mod_tgt"]]); varImpPlot(mods[["mod_cmp"]])
@@ -31,8 +31,6 @@ varImpPlot(mods[["mod_tgt"]]); varImpPlot(mods[["mod_cmp"]])
 ih <- initialHy(df = df, Atgt = Atgt, Acmp = Acmp,
                 Atgt_dist = Atgt_dist, Acmp_dist = Acmp_dist,
                 Atgt_cl = Atgt_cl, Acmp_cl = Acmp_cl,
-                Actx_items = "")
+                Actx_items = Actx_items)
  
 it <- initialTest(ih)
-
-

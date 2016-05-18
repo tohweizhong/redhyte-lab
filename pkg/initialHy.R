@@ -1,5 +1,6 @@
 
 # initialHy.R
+
 # @ df: df
 # @ Atgt: target attribute
 # @ Acmp: comparing attribute
@@ -9,14 +10,21 @@
 # @ Acmp_dist: e.g. c(1,1,2); length(Acmp_dist) == length(Acmp_cl)
 # @ Actx_items: c("A1 = c1", "A2 = c2")
 
+# 1. generate hyType
+# 2. find mean of Atgt if Atgt is numeric
+# 3. find rows for Atgt, find rows for Acmp, take intersect
+# 4. find rows for ctx items
+# 5. add columns tgt_cl and cmp_cl
+# 6. Discretize all numeric attributes
+
 initialHy <- function(df, Atgt, Acmp,
                       Atgt_cl = NULL, Acmp_cl = NULL,
                       Atgt_dist = NULL, Acmp_dist = NULL,
                       Actx_items = ""){
         
         # length of Atgt_cl should be same as Atgt_dist
-        if(length(Atgt_cl) != length(Atgt_dist)) stop("length(Atgt_cl) != length(Atgt_dist)")
-        if(length(Acmp_cl) != length(Acmp_dist)) stop("length(Acmp_cl) != length(Acmp_dist)")
+        if(length(Atgt_cl) != length(Atgt_dist)) stop("length(Atgt_cl) not equal length(Atgt_dist)")
+        if(length(Acmp_cl) != length(Acmp_dist)) stop("length(Acmp_cl) not equal length(Acmp_dist)")
         
         require(magrittr)
         
@@ -66,72 +74,30 @@ initialHy <- function(df, Atgt, Acmp,
         if(Actx_items %>% nchar > 0){
                 A       <- NULL
                 cl      <- NULL
-                idx_ctx <- NULL
+                idx_ctx <- df_ctx %>% nrow %>% seq
                 for(ii in Actx_items){
-                        tmp  <- strsplit(ii, "=") %>% unlist
+                        tmp  <- strsplit(ii, " = ") %>% unlist
                         A    <- c(A,  tmp[1])
                         cl   <- c(cl, tmp[2])
+                        print(A); print(cl)
                         
                         tmp_idx <- which(df_ctx[,A] == cl)
                         idx_ctx <- intersect(idx_ctx, tmp_idx)
                 }
                 df_ctx <- df_ctx[idx_ctx,]
         }
+        print("1: "); str(df_ctx)
         
-        # after subsetting, assign class for both Atgt and Acmp
-        # tgt_cl and cmp_cl
-        
-        # function to AddClass tgt_cl and cmp_cl
-        AddClass <- function(df, Atgt, Acmp,
-                             Atgt_cl = NULL, Acmp_cl = NULL,
-                             Atgt_dist = NULL, Acmp_dist = NULL){
-                
-                df$tgt_grp <- rep(0, nrow(df))
-                df$cmp_grp <- rep(0, nrow(df))
-                
-                if(ht[["Atgt_type"]] == "num"){
-                        df$tgt_grp <- sapply(df[,Atgt], FUN = function(x){
-                                if(x >= mu) return(paste0(Atgt, "_above_equal_", round(mu, 2)))
-                                else return(paste0(Atgt, "_below_", round(mu, 2)))
-                        })
-                }
-                else if(ht[["Atgt_type"]] == "cate"){
-                        
-                        for(i in seq_along(Atgt_cl)){
-                                
-                                cl  <- Atgt_cl[i]
-                                grp <- Atgt_dist[i]
-                                
-                                df$tgt_grp[which(df[,Atgt] == cl)] <- grp
-                        }
-                }
-                
-                for(i in seq_along(Acmp_cl)){
-                        
-                        cl  <- Acmp_cl[i]
-                        grp <- Acmp_dist[i]
-                        
-                        df$cmp_grp[which(df[,Acmp] == cl)] <- grp
-                }
-                
-                # convert to factor
-                df$tgt_grp <- factor(df$tgt_grp)
-                df$cmp_grp <- factor(df$cmp_grp)
-                
-                return(df)
-        }
-        
+        # after subsetting, assign grps for both Atgt and Acmp
+        # tgt_grp and cmp_grp
         df_ctx <- AddClass(df_ctx, Atgt = Atgt, Acmp = Acmp,
                            Atgt_dist = Atgt_dist, Acmp_dist = Acmp_dist,
-                           Atgt_cl = Atgt_cl, Acmp_cl = Acmp_cl)
-        
-        # drop Atgt and Acmp from df_ctx
-        #df_ctx <- df_ctx[, !(colnames(df_ctx) %in% c(eval(Atgt), eval(Acmp)))]
-        
+                           Atgt_cl = Atgt_cl, Acmp_cl = Acmp_cl, mu = mu)
+        print("2: "); str(df_ctx)
         # Discretize all other attributes
         df_ctx <- Discretize(df_ctx, Atgt = Atgt, Acmp = Acmp, by = "mean")
         
-        str(df_ctx)
+        print("3: "); str(df_ctx)
         
         
         return(list(Atgt = Atgt, Acmp = Acmp,

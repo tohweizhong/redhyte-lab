@@ -1,22 +1,28 @@
 
-# AddClass.R - should be redundant
+# AddClass.R (internal)
 
-AddClass <- function(dat, Atgt, Acmp,
-                     Atgt_cl = "", Acmp_cl = "",
-                     Atgt_dist = 0, Acmp_dist = 0){
+AddClass <- function(df, Atgt, Acmp,
+                     Atgt_cl = NULL, Acmp_cl = NULL,
+                     Atgt_dist = NULL, Acmp_dist = NULL, mu){
         
-        if(length(Atgt_cl) != length(Atgt_dist)) stop("length(Atgt_cl) != length(Atgt_dist)")
-        if(length(Acmp_cl) != length(Acmp_dist)) stop("length(Acmp_cl) != length(Acmp_dist)")
+        df$tgt_grp <- rep(0, nrow(df))
+        df$cmp_grp <- rep(0, nrow(df))
         
-        dat$tgt_cl <- rep(0, nrow(dat))
-        dat$cmp_cl <- rep(0, nrow(dat))
-        
-        for(i in seq_along(Atgt_cl)){
+        if(ht[["Atgt_type"]] == "num"){
+                df$tgt_grp <- sapply(df[,Atgt], FUN = function(x){
+                        if(x >= mu) return(paste0(Atgt, "_above_equal_", round(mu, 2)))
+                        else return(paste0(Atgt, "_below_", round(mu, 2)))
+                })
+        }
+        else if(ht[["Atgt_type"]] == "cate"){
                 
-                cl  <- Atgt_cl[i];
-                grp <- Atgt_dist[i];
-                
-                dat$tgt_cl[which(dat[,Atgt] == cl)] <- grp
+                for(i in seq_along(Atgt_cl)){
+                        
+                        cl  <- Atgt_cl[i]
+                        grp <- Atgt_dist[i]
+                        
+                        df$tgt_grp[which(df[,Atgt] == cl)] <- grp
+                }
         }
         
         for(i in seq_along(Acmp_cl)){
@@ -24,8 +30,12 @@ AddClass <- function(dat, Atgt, Acmp,
                 cl  <- Acmp_cl[i]
                 grp <- Acmp_dist[i]
                 
-                dat$cmp_cl[which(dat[,Acmp] == cl)] <- grp
+                df$cmp_grp[which(df[,Acmp] == cl)] <- grp
         }
         
-        return(dat)
+        # convert to factor
+        df$tgt_grp <- factor(df$tgt_grp)
+        df$cmp_grp <- factor(df$cmp_grp)
+        str(df)
+        return(df)
 }
